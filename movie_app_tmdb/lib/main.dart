@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movie_app_tmdb/details/UI/details_page.dart';
 import 'home/UI/pages/home_page.dart';
 
 
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
             initialRoute: HomePage.routeName,
             routes: {
               HomePage.routeName:(_) => HomePage(),
+              DetailsPage.routeName:(_) => DetailsPage(),
             },
           );
         });

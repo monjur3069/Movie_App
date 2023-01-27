@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movie_app_tmdb/details/UI/details_page.dart';
 import '../../bloc/home_bloc.dart';
 import '../../bloc/home_event.dart';
 import '../../bloc/home_state.dart';
@@ -22,19 +23,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var scaffoldKey = GlobalKey<ScaffoldState>(); //Used for opening drawer
-  var searchController = TextEditingController();
 
-  final HomeBloc _movieBloc = HomeBloc();
+  final HomeBloc _homeBloc = HomeBloc();
 
-  @override
-  void dispose() {
-    searchController.dispose();
-    super.dispose();
-  }
 
   @override
   void initState() {
-    _movieBloc.add(GetNowPlayingMovieList());
+    _homeBloc.add(GetNowPlayingMovieList());
     super.initState();
   }
 
@@ -63,7 +58,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Container(
         child: BlocProvider(
-          create: (_) => _movieBloc,
+          create: (_) => _homeBloc,
           child: BlocListener<HomeBloc, HomeState>(
             listener: (context, state) {
               if (state is HomeError) {
@@ -140,7 +135,9 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ],
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, DetailsPage.routeName);
+                  },
                 );
               },
             ),
@@ -213,3 +210,5 @@ class _HomePageState extends State<HomePage> {
   }
 
 }
+
+
