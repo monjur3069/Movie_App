@@ -1,12 +1,18 @@
-class NowplayingModel {
-  NowplayingModel({
+class NowPlayingModel {
+  String? error;
+  NowPlayingModel({
       this.dates, 
       this.page, 
       this.results, 
       this.totalPages, 
       this.totalResults,});
 
-  NowplayingModel.fromJson(dynamic json) {
+  NowPlayingModel.withError(String errorMessage){
+    error = errorMessage;
+
+  }
+
+  NowPlayingModel.fromJson(dynamic json) {
     dates = json['dates'] != null ? Dates.fromJson(json['dates']) : null;
     page = json['page'];
     if (json['results'] != null) {
@@ -23,12 +29,12 @@ class NowplayingModel {
   List<Results>? results;
   num? totalPages;
   num? totalResults;
-NowplayingModel copyWith({  Dates? dates,
+NowPlayingModel copyWith({  Dates? dates,
   num? page,
   List<Results>? results,
   num? totalPages,
   num? totalResults,
-}) => NowplayingModel(  dates: dates ?? this.dates,
+}) => NowPlayingModel(  dates: dates ?? this.dates,
   page: page ?? this.page,
   results: results ?? this.results,
   totalPages: totalPages ?? this.totalPages,
