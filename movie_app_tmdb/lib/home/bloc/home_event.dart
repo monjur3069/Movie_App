@@ -8,4 +8,14 @@ abstract class HomeEvent extends Equatable{
 }
 
 class GetNowPlayingMovieList extends HomeEvent {}
-class GetPopularMovieList extends HomeEvent {}
+
+
+
+abstract class Home1Event extends Equatable{
+  const Home1Event();
+
+  @override
+  List<Object> get props => [];
+}
+
+class GetPopularMovieList extends Home1Event {}

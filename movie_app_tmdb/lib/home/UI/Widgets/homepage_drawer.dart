@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movie_app_tmdb/home/UI/pages/home_drawer.dart';
 
 import '../../../bookmarks/UI/bookmarks_page.dart';
 
@@ -19,7 +20,9 @@ class HomePageDrawer extends StatelessWidget {
               height: 200.h,
             ),
             InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomeDrawer()));
+                },
                 child: Text(
                   'Home',
                   style: TextStyle(

@@ -30,7 +30,7 @@ class _NewHomePageState extends State<NewHomePage> {
   @override
   void initState() {
     _homeBloc.add(GetNowPlayingMovieList());
-    _homeBloc.add(GetPopularMovieList());
+    // _home1Bloc.add(GetPopularMovieList());
     super.initState();
   }
 

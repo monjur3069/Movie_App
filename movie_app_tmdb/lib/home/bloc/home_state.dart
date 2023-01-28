@@ -20,12 +20,35 @@ class NowPlayingModelLoaded extends HomeState {
   final NowPlayingModel nowPlayingModel;
   const NowPlayingModelLoaded(this.nowPlayingModel);
 }
-class PopularModelLoaded extends HomeState{
-  final PopularModel popular;
-  const PopularModelLoaded(this.popular);
-}
 
 class HomeError extends HomeState {
   final String? message;
   const HomeError(this.message);
 }
+
+
+
+//Second State
+
+abstract class Home1State extends Equatable {
+  const Home1State();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class Home1Initial extends Home1State {}
+
+class Home1Loading extends Home1State {}
+
+class PopularModelLoaded extends Home1State{
+  final PopularModel popular;
+  const PopularModelLoaded(this.popular);
+}
+
+class Home1Error extends Home1State {
+  final String? message;
+  const Home1Error(this.message);
+}
+
+

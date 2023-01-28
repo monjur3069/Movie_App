@@ -13,26 +13,28 @@ import '../Widgets/homepage_1st_slider.dart';
 import '../Widgets/homepage_2nd_slider.dart';
 import '../Widgets/homepage_drawer.dart';
 
-class HomePage extends StatefulWidget {
+class HomeDrawer extends StatefulWidget {
   static const String routeName = '/homepage';
 
-  const HomePage({Key? key}) : super(key: key);
+  const HomeDrawer({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomeDrawer> createState() => _HomeDrawerState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeDrawerState extends State<HomeDrawer> {
   var scaffoldKey = GlobalKey<ScaffoldState>(); //Used for opening drawer
 
   final HomeBloc _homeBloc = HomeBloc();
   final Home1Bloc _home1Bloc = Home1Bloc();
 
 
+
   @override
   void initState() {
     _homeBloc.add(GetNowPlayingMovieList());
     _home1Bloc.add(GetPopularMovieList());
+
 
     super.initState();
   }
@@ -61,7 +63,6 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: Container(
-        height: MediaQuery.of(context).size.height,
         child: Column(
           children: [
             BlocProvider(
@@ -91,33 +92,30 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            SizedBox(height: 10.h,),
-            Expanded(
-              child: BlocProvider(
-                create: (_) => _home1Bloc,
-                child: BlocListener<Home1Bloc, Home1State>(
-                  listener: (context, state) {
-                    if (state is Home1Error) {
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(SnackBar(content: Text(state.message!)));
+            BlocProvider(
+              create: (_) => _home1Bloc,
+              child: BlocListener<Home1Bloc, Home1State>(
+                listener: (context, state) {
+                  if (state is Home1Error) {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(content: Text(state.message!)));
+                  }
+                },
+                child: BlocBuilder<Home1Bloc, Home1State>(
+                  builder: (context, state) {
+                    if (state is Home1Initial) {
+                      return _buildLoading();
+                    }if(state is PopularModelLoaded){
+                      return _popularBuildLoaded(context, state.popular);
+                    }
+                    else if (state is HomeLoading) {
+                      return _buildLoading();
+                    }  else if (state is HomeError) {
+                      return Container();
+                    } else {
+                      return Container();
                     }
                   },
-                  child: BlocBuilder<Home1Bloc, Home1State>(
-                    builder: (context, state) {
-                      if (state is Home1Initial) {
-                        return _buildLoading();
-                      }if(state is PopularModelLoaded){
-                        return _popularBuildLoaded(context, state.popular);
-                      }
-                      else if (state is Home1Loading) {
-                        return _buildLoading();
-                      } else if (state is Home1Error) {
-                        return Container();
-                      } else {
-                        return Container();
-                      }
-                    },
-                  ),
                 ),
               ),
             ),
@@ -209,17 +207,9 @@ class _HomePageState extends State<HomePage> {
               },
             ),
           ),
-
-        ],
-      ),
-    );
-  }
-  Widget _popularBuildLoaded(BuildContext context, PopularModel model,) {
-    return Padding(
-      padding: EdgeInsets.only(left: 16.0.w, right: 5.w),
-      child: Column(
-        children: [
-          //Second Slider
+          SizedBox(
+            height: 15.h,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -256,6 +246,132 @@ class _HomePageState extends State<HomePage> {
               )
             ],
           ),
+          SizedBox(
+            height: 10.h,
+          ),
+          //Second Slider
+          /*Expanded(
+            child: Container(
+              height: 50.h,
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: model.results!.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    child: DashBoardSecondSlider(
+                        title: model.results![index].title!,
+                        img:
+                        'https://image.tmdb.org/t/p/w500${model.results![index].posterPath}',
+                        rating: model.results![index].voteAverage!),
+                    onTap: () {},
+                  );
+                },
+              ),
+            ),
+          ),*/
+        ],
+      ),
+    );
+  }
+  Widget _popularBuildLoaded(BuildContext context, PopularModel model,) {
+    return Padding(
+      padding: EdgeInsets.only(left: 16.0.w, right: 5.w),
+      child: Column(
+        children: [
+          /*Row(
+            children: [
+              Text(
+                'Now, ',
+                style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),
+              ),
+              Text(
+                'Showing',
+                style: TextStyle(
+                    fontSize: 22.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.deepOrange),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          //First Slider
+          Container(
+            height: 200.h,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: model.results!.length,
+              itemBuilder: (context, index) {
+                return InkWell(
+                  child: Row(
+                    children: [
+                      DashBoardFirstSlider(
+                        title: model.results![index].title!,
+                        img:
+                        'https://image.tmdb.org/t/p/w500${model.results![index].posterPath}',
+                        rating: model.results![index].voteAverage!,
+                      ),
+                      SizedBox(
+                        width: 7.w,
+                      ),
+                    ],
+                  ),
+                  onTap: () {
+                    //Navigator.pushNamed(context, DetailsPage.routeName,arguments: model.results![index].id);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                DetailsPage(model.results![index].id.toString())));
+                  },
+                );
+              },
+            ),
+          ),
+          SizedBox(
+            height: 15.h,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    'Popular',
+                    style: TextStyle(
+                        fontSize: 22.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.deepOrange),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Container(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'View All',
+                        style: TextStyle(
+                            fontSize: 16.sp, fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16.r),
+                        border: Border.all(width: 2)),
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                ],
+              )
+            ],
+          ),
+          SizedBox(
+            height: 10.h,
+          ),*/
+          //Second Slider
           Expanded(
             child: Container(
               height: 50.h,
