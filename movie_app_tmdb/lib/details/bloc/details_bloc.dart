@@ -5,13 +5,13 @@ import 'details_state.dart';
 
 
 class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
-  DetailsBloc() : super(DetailsInitial()) {
+  DetailsBloc(String? id) : super(DetailsInitial()) {
     final DetailsApiRepository _apiRepository = DetailsApiRepository();
 
     on<GetDetailsMovieList>((event, emit) async {
       try {
         emit(DetailsLoading());
-        final npList = await _apiRepository.fetchDetailsMovieList();
+        final npList = await _apiRepository.fetchDetailsMovieList(id);
         emit(DetailsModelLoaded(npList));
         if (npList.error != null) {
           emit(DetailsError(npList.error));

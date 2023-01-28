@@ -17,8 +17,8 @@ class HomeInitial extends HomeState {}
 class HomeLoading extends HomeState {}
 
 class NowPlayingModelLoaded extends HomeState {
-  final NowPlayingModel nowPlaying;
-  const NowPlayingModelLoaded(this.nowPlaying);
+  final NowPlayingModel nowPlayingModel;
+  const NowPlayingModelLoaded(this.nowPlayingModel);
 }
 class PopularModelLoaded extends HomeState{
   final PopularModel popular;

@@ -1,38 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movie_app_tmdb/details/UI/details_page.dart';
 import '../../bloc/home_bloc.dart';
 import '../../bloc/home_event.dart';
 import '../../bloc/home_state.dart';
+import '../../db_helper/db.dart';
 import '../../model/now_playing_model.dart';
+import '../Widgets/build_widget.dart';
 import '../Widgets/homepage_1st_slider.dart';
 import '../Widgets/homepage_2nd_slider.dart';
 import '../Widgets/homepage_drawer.dart';
 
-class HomePageCopy extends StatefulWidget {
+class NewHomePage extends StatefulWidget {
   static const String routeName = '/homepage';
 
-  const HomePageCopy({Key? key}) : super(key: key);
+  const NewHomePage({Key? key}) : super(key: key);
 
   @override
-  State<HomePageCopy> createState() => _HomePageCopyState();
+  State<NewHomePage> createState() => _NewHomePageState();
 }
 
-class _HomePageCopyState extends State<HomePageCopy> {
+class _NewHomePageState extends State<NewHomePage> {
   var scaffoldKey = GlobalKey<ScaffoldState>(); //Used for opening drawer
-  var searchController = TextEditingController();
 
-  final HomeBloc _movieBloc = HomeBloc();
+  final HomeBloc _homeBloc = HomeBloc();
 
-  @override
-  void dispose() {
-    searchController.dispose();
-    super.dispose();
-  }
 
   @override
   void initState() {
-    _movieBloc.add(GetNowPlayingMovieList());
+    _homeBloc.add(GetNowPlayingMovieList());
+    _homeBloc.add(GetPopularMovieList());
     super.initState();
   }
 
@@ -61,7 +59,7 @@ class _HomePageCopyState extends State<HomePageCopy> {
       ),
       body: Container(
         child: BlocProvider(
-          create: (_) => _movieBloc,
+          create: (_) => _homeBloc,
           child: BlocListener<HomeBloc, HomeState>(
             listener: (context, state) {
               if (state is HomeError) {
@@ -76,7 +74,7 @@ class _HomePageCopyState extends State<HomePageCopy> {
                 } else if (state is HomeLoading) {
                   return _buildLoading();
                 } else if (state is NowPlayingModelLoaded) {
-                  return _nowPlayingBuildLoaded(context, state.nowPlayingModel);
+                  return _nowPlayingBuildLoaded(context,state.nowPlayingModel);
                 } else if (state is HomeError) {
                   return Container();
                 } else {
@@ -138,7 +136,14 @@ class _HomePageCopyState extends State<HomePageCopy> {
                       ),
                     ],
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    //Navigator.pushNamed(context, DetailsPage.routeName,arguments: model.results![index].id);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                DetailsPage(model.results![index].id.toString())));
+                  },
                 );
               },
             ),
@@ -167,14 +172,14 @@ class _HomePageCopyState extends State<HomePageCopy> {
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         'View All',
-                        style:
-                        TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                        style: TextStyle(
+                            fontSize: 16.sp, fontWeight: FontWeight.w600),
                       ),
                     ),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16.r),
-                        border: Border.all(width: 2)
-                    ),),
+                        border: Border.all(width: 2)),
+                  ),
                   SizedBox(
                     width: 10.w,
                   ),
@@ -187,30 +192,28 @@ class _HomePageCopyState extends State<HomePageCopy> {
           ),
           //Second Slider
           Expanded(
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 6,
-                  mainAxisSpacing: 6,
-                  childAspectRatio: 0.8),
-              itemCount: model.results!.length,
-              itemBuilder: (context, index) {
-                return InkWell(
-                  child: DashBoardSecondSlider(
-                    title: model.results![index].title!,
-                    img: 'https://image.tmdb.org/t/p/w500${model.results![index].posterPath}',
-                    rating: model.results![index].voteAverage!,
-                  ),
-                  /*Container(
-                          color: Colors.grey,
-                        ),*/
-                  onTap: () {},
-                );
-              },
+            child: Container(
+              height: 50.h,
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: model.results!.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    child: DashBoardSecondSlider(
+                        title: model.results![index].title!,
+                        img:
+                        'https://image.tmdb.org/t/p/w500${model.results![index].posterPath}',
+                        rating: model.results![index].voteAverage!),
+                    onTap: () {},
+                  );
+                },
+              ),
             ),
-          )
+          ),
         ],
       ),
     );
   }
+
 }
+

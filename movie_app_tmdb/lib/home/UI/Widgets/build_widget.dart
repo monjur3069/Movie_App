@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../model/now_playing_model.dart';
-import 'dashboard_1st_slider.dart';
-import 'dashboard_2nd_slider.dart';
+import 'homepage_1st_slider.dart';
+import 'homepage_2nd_slider.dart';
 
 
 class BuildLoading extends StatelessWidget {
