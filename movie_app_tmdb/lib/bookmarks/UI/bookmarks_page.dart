@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movie_app_tmdb/bookmarks/UI/Widgets/detailsWidget.dart';
+import 'package:movie_app_tmdb/bookmarks/UI/Widgets/bookmarks_widget.dart';
 import 'package:movie_app_tmdb/details/bloc/details_bloc.dart';
 import 'package:movie_app_tmdb/details/bloc/details_event.dart';
 import 'package:movie_app_tmdb/details/bloc/details_state.dart';
@@ -92,7 +92,7 @@ class _BookmarksPageState extends State<BookmarksPage> {
                 itemCount: 1,
                 itemBuilder: (context, index) {
                   return InkWell(
-                    child: DetailsWidget(
+                    child: BookmarksWidget(
                         title: model.title!,
                         img:
                         'https://image.tmdb.org/t/p/w500${model.posterPath}',

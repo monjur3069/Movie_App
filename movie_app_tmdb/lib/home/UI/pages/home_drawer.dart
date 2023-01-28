@@ -25,8 +25,8 @@ class HomeDrawer extends StatefulWidget {
 class _HomeDrawerState extends State<HomeDrawer> {
   var scaffoldKey = GlobalKey<ScaffoldState>(); //Used for opening drawer
 
-  final HomeBloc _homeBloc = HomeBloc();
-  final Home1Bloc _home1Bloc = Home1Bloc();
+  final HomeNowPlayingBloc _homeBloc = HomeNowPlayingBloc();
+  final HomePopularBloc _home1Bloc = HomePopularBloc();
 
 
 
@@ -67,23 +67,23 @@ class _HomeDrawerState extends State<HomeDrawer> {
           children: [
             BlocProvider(
               create: (_) => _homeBloc,
-              child: BlocListener<HomeBloc, HomeState>(
+              child: BlocListener<HomeNowPlayingBloc, HomeNowPlayingState>(
                 listener: (context, state) {
-                  if (state is HomeError) {
+                  if (state is HomeNowPlayingError) {
                     ScaffoldMessenger.of(context)
                         .showSnackBar(SnackBar(content: Text(state.message!)));
                   }
                 },
-                child: BlocBuilder<HomeBloc, HomeState>(
+                child: BlocBuilder<HomeNowPlayingBloc, HomeNowPlayingState>(
                   builder: (context, state) {
-                    if (state is HomeInitial) {
+                    if (state is HomeNowPlayingInitial) {
                       return _buildLoading();
                     }
-                    else if (state is HomeLoading) {
+                    else if (state is HomeNowPlayingLoading) {
                       return _buildLoading();
                     } else if (state is NowPlayingModelLoaded) {
                       return _nowPlayingBuildLoaded(context,state.nowPlayingModel);
-                    } else if (state is HomeError) {
+                    } else if (state is HomeNowPlayingError) {
                       return Container();
                     } else {
                       return Container();
@@ -94,23 +94,23 @@ class _HomeDrawerState extends State<HomeDrawer> {
             ),
             BlocProvider(
               create: (_) => _home1Bloc,
-              child: BlocListener<Home1Bloc, Home1State>(
+              child: BlocListener<HomePopularBloc, HomePopularState>(
                 listener: (context, state) {
-                  if (state is Home1Error) {
+                  if (state is HomePopularError) {
                     ScaffoldMessenger.of(context)
                         .showSnackBar(SnackBar(content: Text(state.message!)));
                   }
                 },
-                child: BlocBuilder<Home1Bloc, Home1State>(
+                child: BlocBuilder<HomePopularBloc, HomePopularState>(
                   builder: (context, state) {
-                    if (state is Home1Initial) {
+                    if (state is HomePopularInitial) {
                       return _buildLoading();
                     }if(state is PopularModelLoaded){
                       return _popularBuildLoaded(context, state.popular);
                     }
-                    else if (state is HomeLoading) {
+                    else if (state is HomeNowPlayingLoading) {
                       return _buildLoading();
-                    }  else if (state is HomeError) {
+                    }  else if (state is HomeNowPlayingError) {
                       return Container();
                     } else {
                       return Container();

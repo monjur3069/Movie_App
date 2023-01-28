@@ -12,6 +12,7 @@ import '../Widgets/build_widget.dart';
 import '../Widgets/homepage_1st_slider.dart';
 import '../Widgets/homepage_2nd_slider.dart';
 import '../Widgets/homepage_drawer.dart';
+import '../home_usecase/home_usecase.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = '/homepage';
@@ -25,14 +26,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var scaffoldKey = GlobalKey<ScaffoldState>(); //Used for opening drawer
 
-  final HomeBloc _homeBloc = HomeBloc();
-  final Home1Bloc _home1Bloc = Home1Bloc();
+  final HomeNowPlayingBloc _homeNowPlayingBloc = HomeNowPlayingBloc();
+  final HomePopularBloc _homePopularBloc = HomePopularBloc();
 
 
   @override
   void initState() {
-    _homeBloc.add(GetNowPlayingMovieList());
-    _home1Bloc.add(GetPopularMovieList());
+    _homeNowPlayingBloc.add(GetNowPlayingMovieList());
+    _homePopularBloc.add(GetPopularMovieList());
 
     super.initState();
   }
@@ -65,24 +66,24 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             BlocProvider(
-              create: (_) => _homeBloc,
-              child: BlocListener<HomeBloc, HomeState>(
+              create: (_) => _homeNowPlayingBloc,
+              child: BlocListener<HomeNowPlayingBloc, HomeNowPlayingState>(
                 listener: (context, state) {
-                  if (state is HomeError) {
+                  if (state is HomeNowPlayingError) {
                     ScaffoldMessenger.of(context)
                         .showSnackBar(SnackBar(content: Text(state.message!)));
                   }
                 },
-                child: BlocBuilder<HomeBloc, HomeState>(
+                child: BlocBuilder<HomeNowPlayingBloc, HomeNowPlayingState>(
                   builder: (context, state) {
-                    if (state is HomeInitial) {
+                    if (state is HomeNowPlayingInitial) {
                       return _buildLoading();
                     }
-                    else if (state is HomeLoading) {
+                    else if (state is HomeNowPlayingLoading) {
                       return _buildLoading();
                     } else if (state is NowPlayingModelLoaded) {
                       return _nowPlayingBuildLoaded(context,state.nowPlayingModel);
-                    } else if (state is HomeError) {
+                    } else if (state is HomeNowPlayingError) {
                       return Container();
                     } else {
                       return Container();
@@ -94,24 +95,24 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 10.h,),
             Expanded(
               child: BlocProvider(
-                create: (_) => _home1Bloc,
-                child: BlocListener<Home1Bloc, Home1State>(
+                create: (_) => _homePopularBloc,
+                child: BlocListener<HomePopularBloc, HomePopularState>(
                   listener: (context, state) {
-                    if (state is Home1Error) {
+                    if (state is HomePopularError) {
                       ScaffoldMessenger.of(context)
                           .showSnackBar(SnackBar(content: Text(state.message!)));
                     }
                   },
-                  child: BlocBuilder<Home1Bloc, Home1State>(
+                  child: BlocBuilder<HomePopularBloc, HomePopularState>(
                     builder: (context, state) {
-                      if (state is Home1Initial) {
+                      if (state is HomePopularInitial) {
                         return _buildLoading();
                       }if(state is PopularModelLoaded){
                         return _popularBuildLoaded(context, state.popular);
                       }
-                      else if (state is Home1Loading) {
+                      else if (state is HomePopularLoading) {
                         return _buildLoading();
-                      } else if (state is Home1Error) {
+                      } else if (state is HomePopularError) {
                         return Container();
                       } else {
                         return Container();
@@ -131,7 +132,7 @@ class _HomePageState extends State<HomePage> {
     return const Center(child: CircularProgressIndicator());
   }
 
-  Widget _nowPlayingBuildLoaded(BuildContext context, NowPlayingModel model,) {
+  Widget _nowPlayingBuildLoaded(BuildContext context, NowPlayingModel model) {
 
     return Padding(
       padding: EdgeInsets.only(left: 16.0.w, right: 5.w),
@@ -197,14 +198,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ],
                   ),
-                  onTap: () {
-                    //Navigator.pushNamed(context, DetailsPage.routeName,arguments: model.results![index].id);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                DetailsPage(model.results![index].id.toString())));
-                  },
+                  onTap: () => detailsPage(context,model.results![index].id.toString()),
                 );
               },
             ),
@@ -269,13 +263,7 @@ class _HomePageState extends State<HomePage> {
                         img:
                         'https://image.tmdb.org/t/p/w500${model.results![index].posterPath}',
                         rating: model.results![index].voteAverage!),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  DetailsPage(model.results![index].id.toString())));
-                    },
+                    onTap: () => detailsPage(context,model.results![index].id.toString()),
                   );
                 },
               ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app_tmdb/home/UI/pages/home_drawer.dart';
 
-import '../../../bookmarks/UI/bookmarks_page.dart';
+import '../home_usecase/home_usecase.dart';
 
 class HomePageDrawer extends StatelessWidget {
   const HomePageDrawer({Key? key}) : super(key: key);
@@ -20,9 +20,7 @@ class HomePageDrawer extends StatelessWidget {
               height: 200.h,
             ),
             InkWell(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomeDrawer()));
-                },
+                onTap: () {},
                 child: Text(
                   'Home',
                   style: TextStyle(
@@ -34,9 +32,7 @@ class HomePageDrawer extends StatelessWidget {
               height: 10,
             ),
             InkWell(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => BookmarksPage('76600')));
-                },
+                onTap: () => bookmarksPage(context,'76600'),
                 child: Text(
                   'Bookmarks',
                   style: TextStyle(
@@ -49,4 +45,5 @@ class HomePageDrawer extends StatelessWidget {
       ),
     );
   }
+
 }

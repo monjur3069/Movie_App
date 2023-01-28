@@ -7,7 +7,7 @@ import 'home_api_fetch.dart';
 class HomeApiRepository {
   final _homeProvider = HomeApiProvider();
 
-  Future<NowPlayingModel> fetchNowShowingMovieList() {
+  Future<NowPlayingModel> fetchNowPlayingMovieList() {
     return _homeProvider.fetchNowShowingMovieList();
   }
   Future<PopularModel> fetchPopularMovieList() {
@@ -15,4 +15,4 @@ class HomeApiRepository {
   }
 }
 
-class HomeNetworkError extends Error {}
+class HomeNowPlayingNetworkError extends Error {}

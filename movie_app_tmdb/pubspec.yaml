@@ -45,6 +45,7 @@ dependencies:
   flutter_bloc:
   equatable:
   dio:
+  sqflite:
 
 dev_dependencies:
   flutter_test:

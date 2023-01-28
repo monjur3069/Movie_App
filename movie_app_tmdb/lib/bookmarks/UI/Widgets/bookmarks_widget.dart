@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
-class DetailsWidget extends StatefulWidget {
+class BookmarksWidget extends StatefulWidget {
 
   String title;
   String img;
   num rating;
 
-  DetailsWidget({
+  BookmarksWidget({
     required this.title,
     required this.img,
     required this.rating,
@@ -16,10 +16,10 @@ class DetailsWidget extends StatefulWidget {
   }) : super(key: key,);
 
   @override
-  State<DetailsWidget> createState() => _DetailsWidgetState();
+  State<BookmarksWidget> createState() => _BookmarksWidgetState();
 }
 
-class _DetailsWidgetState extends State<DetailsWidget> {
+class _BookmarksWidgetState extends State<BookmarksWidget> {
 
 
   @override

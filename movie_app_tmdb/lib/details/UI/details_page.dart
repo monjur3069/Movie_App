@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movie_app_tmdb/details/UI/usecase/details_usecase.dart';
 import 'package:movie_app_tmdb/details/bloc/details_bloc.dart';
 import 'package:movie_app_tmdb/details/bloc/details_event.dart';
 import 'package:movie_app_tmdb/details/bloc/details_state.dart';
@@ -105,7 +106,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                 fontWeight: FontWeight.bold, fontSize: 20.sp),
                           ),
                           IconButton(
-                              onPressed: () {}, icon: Icon(Icons.bookmark))
+                              onPressed: () => insertData(context,widget.id), icon: Icon(Icons.bookmark))
                         ],
                       ),
                       SizedBox(height: 10.h,),
@@ -171,9 +172,6 @@ class _DetailsPageState extends State<DetailsPage> {
       ),
     );
   }
-  String durationToString(num? minutes) {
-    var d = Duration(minutes: int.parse(minutes.toString()));
-    List<String> parts = d.toString().split(':');
-    return '${parts[0].padLeft(2, '0')}h ${parts[1].padLeft(2, '0')}min';
-  }
+
+
 }

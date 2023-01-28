@@ -5,50 +5,50 @@ import '../model/now_playing_model.dart';
 import '../model/poular_model.dart';
 
 
-abstract class HomeState extends Equatable {
-  const HomeState();
+abstract class HomeNowPlayingState extends Equatable {
+  const HomeNowPlayingState();
 
   @override
   List<Object?> get props => [];
 }
 
-class HomeInitial extends HomeState {}
+class HomeNowPlayingInitial extends HomeNowPlayingState {}
 
-class HomeLoading extends HomeState {}
+class HomeNowPlayingLoading extends HomeNowPlayingState {}
 
-class NowPlayingModelLoaded extends HomeState {
+class NowPlayingModelLoaded extends HomeNowPlayingState {
   final NowPlayingModel nowPlayingModel;
   const NowPlayingModelLoaded(this.nowPlayingModel);
 }
 
-class HomeError extends HomeState {
+class HomeNowPlayingError extends HomeNowPlayingState {
   final String? message;
-  const HomeError(this.message);
+  const HomeNowPlayingError(this.message);
 }
 
 
 
 //Second State
 
-abstract class Home1State extends Equatable {
-  const Home1State();
+abstract class HomePopularState extends Equatable {
+  const HomePopularState();
 
   @override
   List<Object?> get props => [];
 }
 
-class Home1Initial extends Home1State {}
+class HomePopularInitial extends HomePopularState {}
 
-class Home1Loading extends Home1State {}
+class HomePopularLoading extends HomePopularState {}
 
-class PopularModelLoaded extends Home1State{
+class PopularModelLoaded extends HomePopularState{
   final PopularModel popular;
   const PopularModelLoaded(this.popular);
 }
 
-class Home1Error extends Home1State {
+class HomePopularError extends HomePopularState {
   final String? message;
-  const Home1Error(this.message);
+  const HomePopularError(this.message);
 }
 
 
