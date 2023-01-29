@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../bookmarks/UI/bookmarks_page.dart';
+import '../../../bookmarks/UI/pages/bookmarks_page.dart';
 import '../../../details/UI/details_page.dart';
 
 detailsPage(BuildContext context, String movieId) {
@@ -12,5 +12,5 @@ detailsPage(BuildContext context, String movieId) {
 }
 
 bookmarksPage(BuildContext context,String id) {
-  Navigator.push(context, MaterialPageRoute(builder: (context) => BookmarksPage(id)));
+  Navigator.push(context, MaterialPageRoute(builder: (context) => BookmarksPage()));
 }
