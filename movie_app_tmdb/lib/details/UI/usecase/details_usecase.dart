@@ -17,12 +17,11 @@ insertData(BuildContext context,String? id, String image, String title, String r
   for(var value in genersList){
     genersList1.write("${value.name.toString()},");
   }
-  //print(Id);
   final movie = LocalDBModel(mid: Id,image: image.toString(),title: title.toString(),rating: rating.toString(),time: time.toString(),geners: genersList1.toString());
-  //print(movieId.toString());
   final rowId = await DBHelper.insertMovieId(movie);
   if(rowId>0){
     movie.id = rowId;
+
     Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
   }
   else{

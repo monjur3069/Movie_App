@@ -32,7 +32,7 @@ class HomePageDrawer extends StatelessWidget {
               height: 10,
             ),
             InkWell(
-                onTap: () => bookmarksPage(context,'76600'),
+                onTap: () => bookmarksPage(context),
                 child: Text(
                   'Bookmarks',
                   style: TextStyle(

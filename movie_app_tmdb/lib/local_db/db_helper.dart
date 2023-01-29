@@ -34,7 +34,7 @@ class DBHelper{
     return db.insert(tableMovie, localDBModel.toMap());
   }
 
-  static Future<List<LocalDBModel>> getAllMovieId() async{
+  static Future<List<LocalDBModel>> getAllMovieDetails() async{
     final db = await open();
     final mapList = await db.query(tableMovie);
     return List.generate(mapList.length, (index) => LocalDBModel.fromMap(mapList[index]));
