@@ -6,6 +6,8 @@ import 'package:movie_app_tmdb/details/bloc/details_bloc.dart';
 import 'package:movie_app_tmdb/details/bloc/details_event.dart';
 import 'package:movie_app_tmdb/details/bloc/details_state.dart';
 import 'package:movie_app_tmdb/details/model/details_model.dart';
+import 'package:movie_app_tmdb/local_db/db_helper.dart';
+import 'package:movie_app_tmdb/local_db_model/local_db_model.dart';
 
 import '../../home/UI/Widgets/homepage_2nd_slider.dart';
 
@@ -22,11 +24,13 @@ class BookmarksPage extends StatefulWidget {
 
 class _BookmarksPageState extends State<BookmarksPage> {
   late DetailsBloc _detailsBloc;
+  LocalDBModel localDBModel = LocalDBModel();
 
   @override
   void initState() {
     _detailsBloc = DetailsBloc(widget.id);
     _detailsBloc.add(GetDetailsMovieList());
+
     // TODO: implement initState
     super.initState();
   }

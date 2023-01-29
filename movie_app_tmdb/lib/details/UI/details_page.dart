@@ -76,6 +76,15 @@ class _DetailsPageState extends State<DetailsPage> {
   }
 
   Widget _detailsLoaded(BuildContext context, DetailsModel model) {
+
+    final image = 'https://image.tmdb.org/t/p/w500${model.posterPath!}';
+    final title = model.title!;
+    final rating = model.voteAverage!.toString();
+    final time = durationToString(model.runtime);
+
+    bool isTrue = false;
+
+
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
@@ -92,7 +101,8 @@ class _DetailsPageState extends State<DetailsPage> {
                   color: Colors.white,
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 16.0, top: 16,right: 8.0),
+                  padding:
+                      const EdgeInsets.only(left: 16.0, top: 16, right: 8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
@@ -106,10 +116,13 @@ class _DetailsPageState extends State<DetailsPage> {
                                 fontWeight: FontWeight.bold, fontSize: 20.sp),
                           ),
                           IconButton(
-                              onPressed: () => insertData(context,widget.id), icon: Icon(Icons.bookmark))
+                              onPressed: () => insertData(context, widget.id,image,title,rating,time,model.genres!),
+                              icon: Icon(Icons.bookmark))
                         ],
                       ),
-                      SizedBox(height: 10.h,),
+                      SizedBox(
+                        height: 10.h,
+                      ),
                       Row(
                         children: [
                           Icon(
@@ -123,16 +136,22 @@ class _DetailsPageState extends State<DetailsPage> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 10.h,),
+                      SizedBox(
+                        height: 10.h,
+                      ),
                       SizedBox(
                           height: 20.h,
                           child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: model.genres!.length,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: model.genres!.length,
                               itemBuilder: (context, index) {
-                              return OutlinedButton(onPressed: (){}, child: Text(model.genres![index].name!));
+                                return OutlinedButton(
+                                    onPressed: () {},
+                                    child: Text(model.genres![index].name!));
                               })),
-                      SizedBox(height: 10.h,),
+                      SizedBox(
+                        height: 10.h,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -140,29 +159,33 @@ class _DetailsPageState extends State<DetailsPage> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text('Length'),
-                             Text(durationToString(model.runtime))
+                              Text(durationToString(model.runtime))
                             ],
                           ),
                           Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text('Language'),
-                             Text(model.spokenLanguages![0].englishName!)
+                              Text(model.spokenLanguages![0].englishName!)
                             ],
                           ),
                           Column(
                             mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text('Rating'),
-                             Text('PG-13')
-                            ],
+                            children: [Text('Rating'), Text('PG-13')],
                           ),
                         ],
                       ),
-                      SizedBox(height: 10.h,),
-                      Text('Description',style: TextStyle(fontSize: 22.sp,color: Color(
-                          0xFF000A3D)),),
-                      SizedBox(height: 10.h,),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      Text(
+                        'Description',
+                        style: TextStyle(
+                            fontSize: 22.sp, color: Color(0xFF000A3D)),
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
                       Text(model.overview!)
                     ],
                   ),
@@ -172,6 +195,4 @@ class _DetailsPageState extends State<DetailsPage> {
       ),
     );
   }
-
-
 }

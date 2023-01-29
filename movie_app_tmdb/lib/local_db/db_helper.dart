@@ -1,13 +1,18 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import '../local_db_model/bookmarks_model.dart';
+import '../local_db_model/local_db_model.dart';
 
 
 class DBHelper{
   static const String createTableMovie='''
   create table $tableMovie(
   $tableColId integer primary key,
-  $tableColMovieId integer
+  $tableColMovieId integer,
+  $tableColMovieImage String,
+  $tableColMovieTitle String,
+  $tableColMovieGeners String,
+  $tableColMovieRating String,
+  $tableColMovieTime String
   )
   ''';
 
@@ -19,9 +24,14 @@ class DBHelper{
       db.execute(createTableMovie);
     } );
   }
-  static Future<int> insertMovieId(LocalDBModel bookmarksModel) async{
+  static Future<int> insertMovieId(LocalDBModel localDBModel) async{
     final db = await open();
-    return db.insert(tableMovie, bookmarksModel.toMap());
+    print(localDBModel.title);
+    print(localDBModel.time);
+    print(localDBModel.rating);
+    print(localDBModel.image);
+    print(localDBModel.geners);
+    return db.insert(tableMovie, localDBModel.toMap());
   }
 
   static Future<List<LocalDBModel>> getAllMovieId() async{
