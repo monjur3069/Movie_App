@@ -43,6 +43,7 @@ class _BookmarksPageState extends State<BookmarksPage> {
                           onTap: () => detailsPage(
                               context, snapshot.data![index].mid!.toString()),
                           child: BookmarksWidget(
+                              mid : snapshot.data![index].mid!,
                               title: snapshot.data![index].title!,
                               img: snapshot.data![index].image!,
                               rating: snapshot.data![index].rating!,

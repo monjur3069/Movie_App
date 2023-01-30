@@ -51,4 +51,10 @@ class DBHelper{
     return s;
   }
 
+  static Future<int> deleteMovieList(int id) async {
+    final db = await open();
+    return db
+        .delete(tableMovie, where: '$tableColMovieId = ?', whereArgs: [id]);
+  }
+
 }

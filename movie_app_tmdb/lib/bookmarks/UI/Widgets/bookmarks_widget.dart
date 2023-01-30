@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movie_app_tmdb/bookmarks/UI/bookmarks_usecase/bookmarks_usecase.dart';
+import 'package:movie_app_tmdb/local_db/db_helper.dart';
 
 
 class BookmarksWidget extends StatefulWidget {
 
+  int mid;
   String title;
   String img;
   num rating;
@@ -16,7 +19,7 @@ class BookmarksWidget extends StatefulWidget {
     required this.rating,
     required this.geners,
     required this.length,
-    Key? key,
+    Key? key, required this.mid,
   }) : super(key: key,);
 
   @override
@@ -156,7 +159,7 @@ class _BookmarksWidgetState extends State<BookmarksWidget> {
                                       ),
                                     ),
                                     IconButton(
-                                        onPressed: (){},
+                                        onPressed: () => deleteItemFromMovieList(context,widget.mid),
                                         icon: const Icon(Icons.delete,color: Colors.red,size: 40,)),
 
                                   ],
@@ -177,4 +180,6 @@ class _BookmarksWidgetState extends State<BookmarksWidget> {
       ),
     );
   }
+
+
 }
