@@ -34,56 +34,26 @@ class _BookmarksPageState extends State<BookmarksPage> {
     return Scaffold(
       backgroundColor: Color(0xebffffff),
       body: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              height: 10,
-            ),
-            Card(
-              elevation: 10,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(24.r)),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(height: 5.h),
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(24.r)),
-                    height: 120.h,
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width,
-                    child: Center(
-                      child: FutureBuilder(
-                          future: fetchData(),
-                          builder: (context,
-                              AsyncSnapshot<List<LocalDBModel>> snapshot) {
-                            if (snapshot.hasData) {
+        child: FutureBuilder(
+            future: fetchData(),
+            builder: (context,
+                AsyncSnapshot<List<LocalDBModel>> snapshot) {
+              if (snapshot.hasData) {
 
-                              return ListView.builder(
-                                  itemCount: snapshot.data!.length,
-                                  itemBuilder: (context, index) {
-                                    split = snapshot.data![index].geners!.split(',');
-                                    return BookmarksWidget(
-                                        title: snapshot.data![index].title!,
-                                        img: snapshot.data![index].image!,
-                                        rating: snapshot.data![index].rating!,
-                                        geners: split,
-                                        length: snapshot.data![index].time!);
-                                  });
-                            }
-                            return Text('data');
-                          }),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
+                return ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      split = snapshot.data![index].geners!.split(',');
+                      return BookmarksWidget(
+                          title: snapshot.data![index].title!,
+                          img: snapshot.data![index].image!,
+                          rating: snapshot.data![index].rating!,
+                          geners: split,
+                          length: snapshot.data![index].time!);
+                    });
+              }
+              return Text('data');
+            })
       ),
     );
   }
