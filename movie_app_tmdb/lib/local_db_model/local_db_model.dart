@@ -13,7 +13,7 @@ class LocalDBModel{
   String? image;
   String? title;
   String? geners;
-  String? rating;
+  num? rating;
   String? time;
 
   LocalDBModel({

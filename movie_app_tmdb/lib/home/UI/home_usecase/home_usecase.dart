@@ -16,9 +16,7 @@ detailsPage(BuildContext context, String movieId) {
 bookmarksPage(BuildContext context) {
   List<LocalDBModel> movieList = [];
 
-  getAllMovieList() async{
-    movieList = await DBHelper.getAllMovieDetails();
-  }
+
 
   Navigator.push(context, MaterialPageRoute(builder: (context) => BookmarksPage()));
 }

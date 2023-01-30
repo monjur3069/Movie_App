@@ -33,6 +33,7 @@ class _HomePageState extends State<HomePage> {
     _homeNowPlayingBloc.add(GetNowPlayingMovieList());
     _homePopularBloc.add(GetPopularMovieList());
 
+
     super.initState();
   }
 
