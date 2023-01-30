@@ -39,7 +39,7 @@ class DBHelper{
     List<Map<String,dynamic>> maps = await db.rawQuery('select * from tbl_movie');
     var s = List.generate(maps.length, (i) {
       return LocalDBModel(
-        mid: maps[i]['mid'],
+        mid: maps[i]['mId'],
         title: maps[i]['title'],
         rating: maps[i]['rating'],
         geners: maps[i]['geners'],

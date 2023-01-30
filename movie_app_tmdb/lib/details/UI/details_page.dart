@@ -30,31 +30,29 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: BlocProvider(
-          create: (_) => _detailsBloc,
-          child: BlocListener<DetailsBloc, DetailsState>(
-            listener: (context, state) {
-              if (state is DetailsError) {
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text(state.message!)));
-              }
-            },
-            child: BlocBuilder<DetailsBloc, DetailsState>(
-                builder: (context, state) {
-              if (state is DetailsInitial) {
-                return Loading();
-              } else if (state is DetailsLoading) {
-                return Loading();
-              } else if (state is DetailsModelLoaded) {
-                return DetailsLoaded(model: state.details,);
-              } else if (state is DetailsError) {
-                return Container();
-              } else {
-                return Container();
-              }
-            }),
-          ),
+      body: BlocProvider(
+        create: (_) => _detailsBloc,
+        child: BlocListener<DetailsBloc, DetailsState>(
+          listener: (context, state) {
+            if (state is DetailsError) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text(state.message!)));
+            }
+          },
+          child: BlocBuilder<DetailsBloc, DetailsState>(
+              builder: (context, state) {
+            if (state is DetailsInitial) {
+              return const Loading();
+            } else if (state is DetailsLoading) {
+              return const Loading();
+            } else if (state is DetailsModelLoaded) {
+              return DetailsLoaded(model: state.details,);
+            } else if (state is DetailsError) {
+              return Container();
+            } else {
+              return Container();
+            }
+          }),
         ),
       ),
     );
