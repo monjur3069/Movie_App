@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app_tmdb/home/UI/home_usecase/home_usecase.dart';
 import 'package:movie_app_tmdb/local_db/db_helper.dart';
 
@@ -50,6 +49,7 @@ class _BookmarksPageState extends State<BookmarksPage> {
                               geners: split,
                               length: snapshot.data![index].time!),
                         );
+
                       });
                 }
                 return Text('data');

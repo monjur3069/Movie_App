@@ -7,16 +7,10 @@ import '../../../details/UI/details_page.dart';
 
 detailsPage(BuildContext context, String movieId) {
   Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) =>
-              DetailsPage(movieId)));
+      context, MaterialPageRoute(builder: (context) => DetailsPage(movieId)));
 }
 
 bookmarksPage(BuildContext context) {
-  List<LocalDBModel> movieList = [];
-
-
-
-  Navigator.push(context, MaterialPageRoute(builder: (context) => BookmarksPage()));
+  Navigator.push(
+      context, MaterialPageRoute(builder: (context) => BookmarksPage()));
 }
