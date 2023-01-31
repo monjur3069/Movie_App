@@ -34,7 +34,7 @@ class DBHelper{
     return db.insert(tableMovie, localDBModel.toMap());
   }
 
-  static Future<List<LocalDBModel>> getAllMovieDetails() async{
+  static Future<List<LocalDBModel>> getAllMovieDetails1() async{
     final db = await open();
     List<Map<String,dynamic>> maps = await db.rawQuery('select * from tbl_movie');
     var s = List.generate(maps.length, (i) {
@@ -49,6 +49,12 @@ class DBHelper{
     });
 
     return s;
+  }
+
+  static Future<List<LocalDBModel>> getAllMovieDetails() async{
+    final db = await open();
+    var mapList = await db.query(tableMovie);
+    return List.generate(mapList.length, (index) => LocalDBModel.fromMap(mapList[index]));
   }
 
   static Future<int> deleteMovieList(int id) async {

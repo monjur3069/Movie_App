@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app_tmdb/bookmarks/UI/bookmarks_usecase/bookmarks_usecase.dart';
 import 'package:movie_app_tmdb/local_db/db_helper.dart';
+import 'package:movie_app_tmdb/local_db_model/local_db_model.dart';
 
 
 class BookmarksWidget extends StatefulWidget {

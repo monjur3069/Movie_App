@@ -50,8 +50,4 @@ class LocalDBModel{
     time: map[tableColMovieTime],
   );
 
-  @override
-  String toString() {
-    return 'BookmarksModel{id: $id, movieId: $mid}';
-  }
 }
