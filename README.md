@@ -1,2 +1,2 @@
 # Movie_App
- Flutter, TMDB API
+ Flutter, TMDB API,BLOC,CLEAN Architecture
