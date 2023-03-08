@@ -49,13 +49,26 @@ class _DashBoardSecondSliderState extends State<DashBoardSecondSlider> {
                       borderRadius: BorderRadius.all(
                         Radius.circular(16),
                       ),
-                      child: Image.network(
+                      child: FadeInImage.assetNetwork(
+                        fit: BoxFit.cover,
+                        height: 100.h,
+                        width: 100.w,
+                        placeholder: "images/spinner.gif",
+                        image: widget.img,
+                        imageErrorBuilder: (c, o, s) => Image.asset(
+                          "images/image_not_found.png",
+                          fit: BoxFit.cover,
+                          height: 150.h,
+                          width: 150.w,
+                        ),
+                      )
+                      /*Image.network(
                         widget.img,
                         height:
                         100.h,
                         width: 100.w,
                         fit: BoxFit.cover,
-                      ),
+                      )*/,
                     ),
                     SizedBox(width: 10.w,),
                     Center(

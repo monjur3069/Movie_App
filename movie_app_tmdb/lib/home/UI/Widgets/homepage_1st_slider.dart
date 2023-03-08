@@ -39,12 +39,25 @@ class _DashBoardFirstSliderState extends State<DashBoardFirstSlider> {
                 borderRadius: BorderRadius.all(
                   Radius.circular(16),
                 ),
-                child: Image.network(
+                child: FadeInImage.assetNetwork(
+                    fit: BoxFit.cover,
+                    height: 150.h,
+                    width: 150.w,
+                    placeholder: "images/spinner.gif",
+                    image: widget.img,
+                  imageErrorBuilder: (c, o, s) => Image.asset(
+                   "images/image_not_found.png",
+                    fit: BoxFit.cover,
+                    height: 150.h,
+                    width: 150.w,
+                  ),
+                )
+                /*Image.network(
                   widget.img,
                   fit: BoxFit.cover,
                   height: 150.h,
                   width: 150.w,
-                ),
+                )*/,
               ),
             ),
           ),

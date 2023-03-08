@@ -47,6 +47,7 @@ dependencies:
   dio:
   sqflite:
   fluttertoast: ^8.1.2
+  shimmer:
 
 dev_dependencies:
   flutter_test:
